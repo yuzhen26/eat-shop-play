@@ -147,7 +147,6 @@ export default {
           id: this.reviewId,
           stars: this.rating,
         });
-        console.log('Updating Rating Breakdown in SubmitReview()')
         //Updates Rating Breakdown after updating Reviews Array
         // Updates Overall Rating after updating Reviews Array
         this.updateRatingBreakdown();
@@ -186,17 +185,10 @@ export default {
       }
     },
     fetchShopDetails() {
-      console.log('fetchShopDetails')
       this.shopName = this.shop["name"];
       this.documentId = this.shop["document_id"];
       this.shopType = "shop"; // set as shop since shop type used for clothing / handcraft / toys
       this.clicks = this.shop["clicks"];
-      //this.overallRating = this.shop["overallRating"];
-      
-      console.log(this)
-      console.log(this.shopName)
-      console.log(this.documentId)
-      console.log(this.overallRating)
 
       database
         .collection(this.shopType)
@@ -285,7 +277,6 @@ export default {
   },
   mounted() {
     this.fetchShopDetails();
-    //console.log("shop login: " + this.loggedIn)
   },
 };
 </script>

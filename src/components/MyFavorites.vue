@@ -66,12 +66,11 @@
 
 <script>
   import database from "../firebase.js";
-
+  import firebase from "firebase/app";
   export default {
-    props:["favorites"],
-
     data() {
       return {
+        favorites:{},
         errorShown: false,
         error: "",
         dropdownOptions: [
@@ -138,6 +137,26 @@
         this.errorShown = false;
         this.filteredShown = true;
       },
+    },
+
+    created() {
+      var user = firebase.auth().currentUser;
+      if (user != null) {
+        var uid = user.uid;
+        database.collection("users")
+        .doc(uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            this.favorites = doc.data().favorites;
+          } else {
+            console.log("No such document!");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+      }
     }
   };
 </script>
@@ -214,6 +233,7 @@ img {
   font-size: 20px;
   text-align: center;
   margin-top: 10px;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
 h3 {
   text-align: center;
@@ -226,16 +246,23 @@ h3 {
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
   border: none;
   outline: none;
+  width: 200px;
+  margin-right: 50px;
 }
 
 #filterDropdown {
-  width: 130px;
-  margin-left: 100px ;
+  width: 150px;
+  margin-left: 250px ;
   margin-top: 20px;
   border: none;
   outline: none;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
-
+#filterDropdown > p {
+  text-align: center;
+  margin-left: 60px;
+  font-size: 20px;
+}
 #filteredFood {
   width: 100%;
   max-width: 80%;
@@ -253,5 +280,6 @@ h3 {
   cursor: pointer;
   text-decoration: none;
   margin-left: 5px;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
 </style>

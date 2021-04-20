@@ -24,15 +24,15 @@
           :clearable="false"
           :searchable = "false"
           @input="sortFood"
-          id="drop"
-        >
+          id="drop">
+
           <template slot="option" slot-scope="option">
             {{ option.criteria }}
           </template>
         </v-select>
       </div>
       <div id="filterDropdown">
-        <p>Cuisine Type:</p>
+        <p>Cuisine:</p>
         <v-select
           label="cuisineType"
           :options="dropdownOptions"
@@ -41,8 +41,7 @@
           :searchable="false"
           v-model="cuisineCriteria"
           @input="filterFood"
-          id="drop"
-        >
+          id="drop">
           <template slot="option" slot-scope="option">
             {{ option.cuisineType }}
           </template>
